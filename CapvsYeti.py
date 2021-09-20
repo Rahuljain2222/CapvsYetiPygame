@@ -59,6 +59,13 @@ font = pygame.font.Font('ScarletJosephine.ttf',42)
 
 textX = 15
 textY = 15
+
+# Game over
+over_font = pygame.font.Font('ScarletJosephine.ttf',64)
+play_again = False
+def game_over_text():
+    over_text = over_font.render("Game Over",True, (255,255,255))
+    screen.blit(over_text, (200,250))
 def explosion(x,y):
     explosion_Img = pygame.image.load('blast.png')
     screen.blit(explosion_Img,(x,y))
@@ -117,6 +124,14 @@ while running:
         playerX = 736  
     # Enemy Movement
     for i in range(num_of_enemies):
+
+        #Game over 
+
+        if enemyY[i] > 420:
+            for j in range(num_of_enemies):
+                enemyY[j] = 4000
+            game_over_text()
+            break
         enemyX[i] += enemyX_change[i]  
         if enemyX[i] <= 0:
             enemyX_change[i] = 0.5
